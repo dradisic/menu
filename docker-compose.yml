@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+    # NGINX config
+    nginx:
+        image: menu-nginx:latest
+        build: docker/nginx
+        container_name: menu-nginx
+        ports:
+            - '${DOCKER_WEBSERVER_PORT}:80'
+        restart: always
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/logs:/var/log/nginx
+        networks:
+            - menu
+
+    # MySql config
+    mysql:
+        image: mariadb:latest
+        container_name: menu-mysql
+        restart: unless-stopped
+        ports:
+            - '${DB_EXTERNAL_PORT}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            - menu_mysql:/var/lib/mysql
+            - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - menu
+
+    # PHP config
+    php:
+        image: menu-php:latest
+        build: docker/php
+        container_name: menu-php
+        restart: always
+        environment:
+            XDEBUG_MODE: ${DOCKER_XDEBUG_MODE:-off}
+        volumes:
+            - ./:/var/www/
+            - ./docker/php/logs:/var/www/docker/php/logs
+        networks:
+            - menu
+
+networks:
+    menu:
+        name: menu
+        driver: bridge
+
+volumes:
+    menu_mysql:
+        name: menu_mysql
+        driver: local
