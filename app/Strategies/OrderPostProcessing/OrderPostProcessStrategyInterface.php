@@ -6,5 +6,5 @@ use App\Models\Order;
 
 interface OrderPostProcessStrategyInterface
 {
-    public function execute(Order $order):void;
+    public function execute(Order $order): void;
 }

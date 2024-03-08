@@ -6,6 +6,7 @@ use App\Factories\OrderPostProcessStrategyFactory;
 use App\Factories\OrderPreProcessStrategyFactory;
 use App\Models\Order;
 use App\Repositories\OrderRepositoryInterface;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -21,7 +22,7 @@ class OrderService implements OrderServiceInterface
     /**
      * @return mixed
      */
-    public function listOrders()
+    public function listOrders(): Collection
     {
         return $this->orderRepository->all();
     }
@@ -70,7 +71,7 @@ class OrderService implements OrderServiceInterface
         return OrderPreProcessStrategyFactory::make($code)->execute($data);
     }
 
-    public function postOrderActions(Order $order): void
+    private function postOrderActions(Order $order): void
     {
         try {
             $strategy = OrderPostProcessStrategyFactory::make($order->currency_code);

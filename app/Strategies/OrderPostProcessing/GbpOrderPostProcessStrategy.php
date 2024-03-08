@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Notification;
 
 class GbpOrderPostProcessStrategy implements OrderPostProcessStrategyInterface
 {
-    public function execute(Order $order):void
+    public function execute(Order $order): void
     {
         Notification::route('mail', config('app.order_admin_email'))->notify(new OrderDetailsNotification($order));
     }

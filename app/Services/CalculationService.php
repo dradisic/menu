@@ -8,7 +8,9 @@ use App\Repositories\RateRepositoryInterface;
 
 class CalculationService implements CalculationServiceInterface
 {
-    public function __construct(private RateRepositoryInterface $rateRepository) {}
+    public function __construct(private RateRepositoryInterface $rateRepository)
+    {
+    }
 
     public function calculateAmounts(string $currencyCode, float $amount): array
     {
@@ -17,13 +19,13 @@ class CalculationService implements CalculationServiceInterface
 
         $data = [
             'amount_foreign_currency' => $amount,
-            'exchange_rate' => $rate->rate,
-            'surcharge_percentage' => Rate::SURCHARGES[$currencyCode] ?? 0,
+            'exchange_rate'           => $rate->rate,
+            'surcharge_percentage'    => Rate::SURCHARGES[$currencyCode] ?? 0,
         ];
 
-        $calculationDTO = new CurrencyCalculationDTO($data);
+        $calculationDTO           = new CurrencyCalculationDTO($data);
         $data['amount_surcharge'] = $calculationDTO->calculateAmountSurcharge();
-        $data['amount_paid'] = round($calculationDTO->calculateTotalAmountInUSD(), 2);
+        $data['amount_paid']      = round($calculationDTO->calculateTotalAmountInUSD(), 2);
 
         return $data;
     }

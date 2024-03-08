@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class ExchangeRateFetcher implements CurrencyLayerServiceInterface
+class ExchangeRateFetcher implements ExchangeRateFetcherInterface
 {
     protected string $baseUrl;
 
@@ -24,7 +24,7 @@ class ExchangeRateFetcher implements CurrencyLayerServiceInterface
         try {
             $response = Http::withHeaders(['accept' => 'application/json'])
                             ->get("{$this->baseUrl}fetch-all", [
-                                'from' => $fromCurrencyCode,
+                                'from'    => $fromCurrencyCode,
                                 'api_key' => $this->apiKey,
                             ]);
 
@@ -33,7 +33,7 @@ class ExchangeRateFetcher implements CurrencyLayerServiceInterface
             }
 
             Log::error('Failed to fetch currency rates', [
-                'status' => $response->status(),
+                'status'   => $response->status(),
                 'response' => $response->body(),
             ]);
 

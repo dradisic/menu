@@ -6,7 +6,7 @@ use App\Models\Order;
 
 class NullOrderPostProcessStrategy implements OrderPostProcessStrategyInterface
 {
-    public function execute(Order $order):void
+    public function execute(Order $order): void
     {
     }
 }

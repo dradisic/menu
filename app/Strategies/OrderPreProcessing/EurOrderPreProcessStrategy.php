@@ -10,6 +10,7 @@ class EurOrderPreProcessStrategy implements OrderPreProcessStrategyInterface
     {
 
     }
+
     public function execute(array $data): array
     {
         return $this->discountService->applyDiscount($data);

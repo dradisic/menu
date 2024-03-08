@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Exceptions\CurrencyNotFoundException;
 use App\Models\Currency;
 use Illuminate\Support\Collection;
 
@@ -20,15 +19,6 @@ class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInt
                 'code' => $code,
             ],
         ]);
-    }
-
-    public function findByCodeOrFail(string $currencyCode): Currency
-    {
-        $currency = $this->findByCode($currencyCode);
-        if (!$currency) {
-            throw new CurrencyNotFoundException($currencyCode);
-        }
-        return $currency;
     }
 
     public function allExcludingUSD(): Collection
