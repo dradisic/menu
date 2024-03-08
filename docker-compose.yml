@@ -46,6 +46,39 @@ services:
         networks:
             - menu
 
+    # Laravel Queue Worker
+    worker:
+        image: menu-php:latest
+        build: docker/php
+        container_name: menu-worker
+        command: php /var/www/artisan queue:work --verbose --tries=3 --timeout=90
+        restart: always
+        volumes:
+            - ./:/var/www/
+        networks:
+            - menu
+
+    # Redis config
+    redis:
+        image: redis:alpine
+        container_name: menu-redis
+        restart: unless-stopped
+        ports:
+            - '${REDIS_PORT}:6379'
+        networks:
+            - menu
+
+    # Cron
+    cron:
+        container_name: menu-cron
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile.cron
+        volumes:
+            - ./:/var/www
+        networks:
+            - menu
+
 networks:
     menu:
         name: menu

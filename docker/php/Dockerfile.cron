@@ -1,0 +1,38 @@
+# Assuming you are using the same PHP image as your app's
+FROM php:8.2-cli
+
+# set main params
+ARG BUILD_ARGUMENT_ENV=dev
+ENV ENV=$BUILD_ARGUMENT_ENV
+ENV USERNAME=laravel
+
+# Install dependencies
+RUN apt-get clean && apt-get update && apt-get upgrade -y && apt-get install -y openssl zip unzip git procps \
+    libonig-dev \
+    libfreetype6-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    cron \
+    curl \
+    default-mysql-client
+RUN rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
+RUN docker-php-ext-install -j$(nproc) gd
+
+RUN docker-php-ext-install pdo mbstring bcmath gd pdo_mysql mysqli pcntl
+
+RUN useradd -G www-data,root -d /home/${USERNAME} ${USERNAME}
+
+RUN chown -R ${USERNAME}:${USERNAME} /var/www
+
+# Copy and set permissions for the start-cron.sh script
+COPY docker/php/start-cron.sh /usr/local/bin/start-cron.sh
+RUN chmod +x /usr/local/bin/start-cron.sh
+
+# Switch back to root user to run the cron job
+USER root
+
+# Start cron using the custom script
+CMD ["/usr/local/bin/start-cron.sh"]

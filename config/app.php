@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CurrencyExchangeServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -184,5 +185,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
+
+    'discount_percentage' => env('APP_DISCOUNT_PERCENTAGE', 2),
+    'order_admin_email' => env('ORDER_ADMIN_EMAIL')
 
 ];

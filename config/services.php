@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'fast-forex' => [
+        'key' => env('FASTFOREX_API_KEY'),
+        'host' => 'https://api.fastforex.io/',
+    ],
+
 ];
