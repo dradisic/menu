@@ -36,6 +36,38 @@ To set up your development environment for the project, follow these steps:
   `php artisan migrate:fresh --seed`
 
 
-## Email 
+## Email Service Configuration
+ - To test email functionalities during development, register with an email service like Mailtrap.
 
-    https://mailtrap.io/signin
+### Mailtrap Setup
+- Sign up or sign in to Mailtrap.
+- Use an existing inbox or create a new one for your project.
+- Locate your inbox's SMTP credentials (host, port, username, password).
+- Update Environment Variables
+- Update the .env file with your Mailtrap credentials:
+```
+MAIL_MAILER=smtp
+MAIL_HOST=<your_mailtrap_smtp_host>
+MAIL_PORT=2525
+MAIL_USERNAME=<your_mailtrap_username>
+MAIL_PASSWORD=<your_mailtrap_password>
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=example@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+Replace the placeholders with your actual Mailtrap credentials.
+
+## Running Tests
+To run the application's tests, use the following command:
+
+```php artisan test```
+
+This command will execute the test suite, allowing you to verify that the application's functionalities are working as expected.
+
+## Updating Currency Rates
+
+The application automatically updates currency rates on a daily basis. However, if you need to update the currency rates manually without waiting for the scheduled update, you can run the following artisan command:
+
+```
+php artisan currency:update-rates
+```
