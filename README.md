@@ -39,6 +39,11 @@ To set up your development environment for the project, follow these steps:
 ## Email Service Configuration
  - To test email functionalities during development, register with an email service like Mailtrap.
 
+## FastForex API KEY 
+ - sign https://console.fastforex.io/auth/signin
+ - confirm email
+ - put your new API KEY from dashboard to FASTFOREX_API_KEY .env variable
+
 ### Mailtrap Setup
 - Sign up or sign in to Mailtrap.
 - Use an existing inbox or create a new one for your project.
