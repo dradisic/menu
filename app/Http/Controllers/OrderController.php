@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
-use App\Services\OrderService;
+use App\Services\OrderServiceInterface;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class OrderController extends Controller
 {
     public function __construct(
-        private OrderService $orderService,
+        private OrderServiceInterface $orderService,
     ) {
     }
 

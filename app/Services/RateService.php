@@ -5,15 +5,17 @@ namespace App\Services;
 use App\Models\Currency;
 use App\Models\Rate;
 use App\Repositories\CurrencyRepository;
+use App\Repositories\CurrencyRepositoryInterface;
 use App\Repositories\RateRepository;
+use App\Repositories\RateRepositoryInterface;
 
 class RateService implements RateServiceInterface
 {
 
     public function __construct(
-        private ExchangeRateFetcher $currencyLayerService,
-        private RateRepository      $rateRepository,
-        private CurrencyRepository  $currencyRepository
+        private ExchangeRateFetcherInterface $currencyLayerService,
+        private RateRepositoryInterface      $rateRepository,
+        private CurrencyRepositoryInterface  $currencyRepository
     ) {
     }
 
@@ -43,5 +45,10 @@ class RateService implements RateServiceInterface
     public function getByCurrencyCode(string $code): ?Rate
     {
         return $this->rateRepository->findByCode($code);
+    }
+
+    public function all()
+    {
+        return $this->rateRepository->all();
     }
 }

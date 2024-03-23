@@ -7,8 +7,8 @@ use App\Models\Currency;
 class QuoteService implements QuoteServiceInterface
 {
     public function __construct(
-        private DiscountService    $discountService,
-        private CalculationService $calculationService
+        private DiscountServiceInterface    $discountService,
+        private CalculationServiceInterface $calculationService
 
     ) {
     }

@@ -14,8 +14,8 @@ class OrderService implements OrderServiceInterface
 {
 
     public function __construct(
-        private OrderRepositoryInterface $orderRepository,
-        private CalculationService       $calculationService
+        private OrderRepositoryInterface    $orderRepository,
+        private CalculationServiceInterface $calculationService
     ) {
     }
 

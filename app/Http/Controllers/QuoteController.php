@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\QuoteRequest;
 use App\Http\Resources\Order\QuoteResource;
-use App\Services\QuoteService;
+use App\Services\QuoteServiceInterface;
 
 class QuoteController extends Controller
 {
-    public function __construct(private QuoteService $quoteService)
+    public function __construct(
+        private QuoteServiceInterface $quoteService
+    )
     {
     }
 

@@ -2,13 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\OrderRepository;
-use App\Repositories\OrderRepositoryInterface;
 use App\Services\ExchangeRateFetcher;
-use App\Services\OrderService;
-use App\Services\OrderServiceInterface;
-use App\Services\RateService;
-use App\Services\RateServiceInterface;
+use App\Services\ExchangeRateFetcherInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
                 config('services.fast-forex.host'),
             );
         });
+        $this->app->bind(ExchangeRateFetcherInterface::class, ExchangeRateFetcher::class);
 
     }
 

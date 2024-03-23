@@ -8,7 +8,9 @@ use App\Repositories\RateRepositoryInterface;
 
 class CalculationService implements CalculationServiceInterface
 {
-    public function __construct(private RateRepositoryInterface $rateRepository)
+    public function __construct(
+        private RateRepositoryInterface $rateRepository
+    )
     {
     }
 

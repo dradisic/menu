@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\RateService;
+use App\Services\RateServiceInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -22,7 +23,7 @@ class UpdateCurrencyRatesCommand extends Command
      */
     protected $description = 'Updates currency exchange rates using the CurrencyLayer API';
 
-    public function __construct(private RateService $rateService)
+    public function __construct(private RateServiceInterface $rateService)
     {
         parent::__construct();
     }
